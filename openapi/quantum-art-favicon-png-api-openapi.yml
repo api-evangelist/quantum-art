@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Favicon.png API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Favicon.png
+paths:
+  /favicon.png:
+    get:
+      summary: Favicon
+      description: Serve favicon.
+      operationId: favicon_favicon_png_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Favicon.png
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

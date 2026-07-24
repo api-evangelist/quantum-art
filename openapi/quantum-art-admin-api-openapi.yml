@@ -1,0 +1,426 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: admin
+paths:
+  /admin/config:
+    get:
+      tags:
+      - admin
+      summary: Admin Observability Config
+      description: 'Admin UI runtime config: whether the Grafana observability link is live and
+
+        its URL. Read from env (GRAFANA_PROXY_*); flip without a rebuild. Admin-gated
+
+        by the router so the URL is never exposed to non-admins.'
+      operationId: admin_observability_config_admin_config_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /admin/grafana-session:
+    post:
+      tags:
+      - admin
+      summary: Admin Grafana Session
+      description: 'Mint a one-time ticket for the Grafana proxy. A new-tab navigation to
+
+        /grafana/ can''t carry the JWT Authorization header, so the SPA calls this
+
+        (authenticated XHR), then opens /grafana/?__t=<ticket>; the proxy exchanges
+
+        the ticket for a scoped HttpOnly session cookie.'
+      operationId: admin_grafana_session_admin_grafana_session_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /admin/health:
+    get:
+      tags:
+      - admin
+      summary: Health Check Details
+      description: 'Detailed health check with component status (admin only).
+
+
+        Public liveness probe lives at GET /health; this endpoint exposes per-component
+
+        detail and is gated behind the admin role at the router level.'
+      operationId: health_check_details_admin_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /admin/metrics:
+    get:
+      tags:
+      - admin
+      summary: Get Metrics
+      description: Get current aggregated metrics (admin only).
+      operationId: get_metrics_admin_metrics_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /admin/debug/publish-webserver-metric:
+    get:
+      tags:
+      - admin
+      summary: Debug Publish Webserver Metric
+      description: Debug endpoint to test webserver metrics publishing (admin only).
+      operationId: debug_publish_webserver_metric_admin_debug_publish_webserver_metric_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /admin/services/{service_name}/maintenance:
+    get:
+      tags:
+      - admin
+      summary: Get Service Maintenance Status
+      description: Return current maintenance status for a service (admin-only).
+      operationId: get_service_maintenance_status_admin_services__service_name__maintenance_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: service_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Service Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /admin/services/{service_name}/maintenance/enable:
+    post:
+      tags:
+      - admin
+      summary: Enable Service Maintenance
+      description: 'Enable maintenance mode for a service.
+
+
+        While in maintenance the service stops claiming new tasks. The optional
+
+        ttl_seconds causes the maintenance flag to auto-clear after that many
+
+        seconds. The maintenance_updates_subscription_task background watcher
+
+        will broadcast the change over WebSocket via Redis keyspace notifications.'
+      operationId: enable_service_maintenance_admin_services__service_name__maintenance_enable_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: service_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Service Name
+      - name: ttl_seconds
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Optional TTL in seconds for auto-disable
+          title: Ttl Seconds
+        description: Optional TTL in seconds for auto-disable
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /admin/services/{service_name}/maintenance/disable:
+    post:
+      tags:
+      - admin
+      summary: Disable Service Maintenance
+      description: 'Disable maintenance mode for a service.
+
+
+        Clears the control key so the service resumes claiming tasks. The
+
+        maintenance_updates_subscription_task background watcher will
+
+        broadcast the change over WebSocket via Redis keyspace notifications.'
+      operationId: disable_service_maintenance_admin_services__service_name__maintenance_disable_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: service_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Service Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /admin/users:
+    get:
+      tags:
+      - admin
+      summary: List Users
+      description: Get all users from database (admin only).
+      operationId: list_users_admin_users_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /admin/users/{user_id}:
+    put:
+      tags:
+      - admin
+      summary: Update User
+      description: Update user details (admin only).
+      operationId: update_user_admin_users__user_id__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              title: Update Data
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - admin
+      summary: Delete User
+      description: Delete a user (admin only).
+      operationId: delete_user_admin_users__user_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /admin/registration-requests:
+    get:
+      tags:
+      - admin
+      summary: List Registration Requests
+      description: 'List registration requests for the admin Pending Users tab.
+
+
+        Sorted by created_at DESC so newest submissions surface first.'
+      operationId: list_registration_requests_admin_registration_requests_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated subset of pending,verified,confirmed,rejected,verification_expired. Defaults to 'verified' (the rows admins can act on).
+          title: Status
+        description: Comma-separated subset of pending,verified,confirmed,rejected,verification_expired. Defaults to 'verified' (the rows admins can act on).
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Case-insensitive substring search across first_name, last_name, email, organization.
+          title: Search
+        description: Case-insensitive substring search across first_name, last_name, email, organization.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /admin/registration-requests/{req_id}/confirm:
+    post:
+      tags:
+      - admin
+      summary: Confirm Registration Request
+      description: "Mark a verified registration request as admin-confirmed.\n\nBody (optional)::\n\n    {\"notes\": \"Saw them at QIP poster session\"}\n\nThe endpoint records the admin event (confirmed_at, confirmed_by,\noptional notes) and flips status verified -> confirmed. The\nsubscription_manager worker then creates the matching user row and\ndrafts a welcome email; the API does not block on either.\n\nIdempotency: any non-verified state returns 409. Race-safe via the\npre-update WHERE clause."
+      operationId: confirm_registration_request_admin_registration_requests__req_id__confirm_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: req_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Req Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - type: object
+                additionalProperties: true
+              - type: 'null'
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

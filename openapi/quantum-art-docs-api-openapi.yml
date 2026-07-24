@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Docs API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Docs
+paths:
+  /docs/end-user-agreement:
+    get:
+      summary: Serve End User Agreement
+      description: Serve React app for the End User Agreement route (client-side routed).
+      operationId: serve_end_user_agreement_docs_end_user_agreement_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Docs
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

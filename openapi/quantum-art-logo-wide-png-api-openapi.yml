@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Logo Wide.png API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Logo Wide.png
+paths:
+  /logo-wide.png:
+    get:
+      summary: Serve Logo Wide
+      description: Serve wide logo.
+      operationId: serve_logo_wide_logo_wide_png_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Logo Wide.png
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

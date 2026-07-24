@@ -1,0 +1,148 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin registration API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: registration
+paths:
+  /admin/registration-requests:
+    get:
+      tags:
+      - registration
+      summary: List Registration Requests
+      description: 'List registration requests for the admin Pending Users tab.
+
+
+        Sorted by created_at DESC so newest submissions surface first.'
+      operationId: list_registration_requests_admin_registration_requests_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated subset of pending,verified,confirmed,rejected,verification_expired. Defaults to 'verified' (the rows admins can act on).
+          title: Status
+        description: Comma-separated subset of pending,verified,confirmed,rejected,verification_expired. Defaults to 'verified' (the rows admins can act on).
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Case-insensitive substring search across first_name, last_name, email, organization.
+          title: Search
+        description: Case-insensitive substring search across first_name, last_name, email, organization.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /admin/registration-requests/{req_id}/confirm:
+    post:
+      tags:
+      - registration
+      summary: Confirm Registration Request
+      description: "Mark a verified registration request as admin-confirmed.\n\nBody (optional)::\n\n    {\"notes\": \"Saw them at QIP poster session\"}\n\nThe endpoint records the admin event (confirmed_at, confirmed_by,\noptional notes) and flips status verified -> confirmed. The\nsubscription_manager worker then creates the matching user row and\ndrafts a welcome email; the API does not block on either.\n\nIdempotency: any non-verified state returns 409. Race-safe via the\npre-update WHERE clause."
+      operationId: confirm_registration_request_admin_registration_requests__req_id__confirm_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: req_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Req Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - type: object
+                additionalProperties: true
+              - type: 'null'
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

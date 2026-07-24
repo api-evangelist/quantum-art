@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Login API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Login
+paths:
+  /login:
+    get:
+      summary: Serve Login
+      description: Serve React app for login route.
+      operationId: serve_login_login_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Login
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

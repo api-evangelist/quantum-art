@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Documentation API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Documentation
+paths:
+  /documentation:
+    get:
+      summary: Serve Documentation
+      description: Serve React app for the public standalone documentation route (client-side routed).
+      operationId: serve_documentation_documentation_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Documentation
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

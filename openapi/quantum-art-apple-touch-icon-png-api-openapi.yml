@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Apple Touch Icon.png API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Apple Touch Icon.png
+paths:
+  /apple-touch-icon.png:
+    get:
+      summary: Apple Touch Icon
+      description: Serve the Apple touch icon (company logo mark).
+      operationId: apple_touch_icon_apple_touch_icon_png_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Apple Touch Icon.png
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

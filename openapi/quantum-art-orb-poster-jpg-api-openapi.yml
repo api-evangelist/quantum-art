@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Orb Poster.jpg API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Orb Poster.jpg
+paths:
+  /orb-poster.jpg:
+    get:
+      summary: Serve Orb Poster
+      description: Serve the still poster for the login background (reduced-motion / video fallback).
+      operationId: serve_orb_poster_orb_poster_jpg_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Orb Poster.jpg
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

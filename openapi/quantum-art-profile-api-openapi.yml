@@ -1,0 +1,213 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Profile API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Profile
+paths:
+  /api/profile/api-key:
+    get:
+      summary: Get Api Key
+      description: 'Get the current user''s API key for programmatic access.
+
+
+        Returns the user''s API key which can be used with:
+
+        - Qiskit Provider for quantum circuit submission
+
+        - Direct API calls as Bearer token
+
+        - Any programmatic integration
+
+
+        Security: Only returns the API key to the authenticated user themselves.'
+      operationId: get_api_key_api_profile_api_key_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+      tags:
+      - Profile
+  /api/profile/api-key/regenerate:
+    post:
+      summary: Regenerate Api Key
+      description: 'Rotate the calling user''s API key.
+
+
+        Body: ``{"expires_in": "1d" | "2w" | "1m" | "3m" | "6m"}``.
+
+        Generates a new ``qaas_<urlsafe>`` token, clears any prior revocation,
+
+        and stamps ``api_key_expires_at = NOW() + interval``. The old key stops
+
+        authenticating immediately (the row''s value is overwritten).'
+      operationId: regenerate_api_key_api_profile_api_key_regenerate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              type: object
+              title: Payload
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Profile
+  /api/profile/password:
+    post:
+      summary: Change Password
+      description: 'Rotate the calling user''s password.
+
+
+        Body: ``{"current_password": str, "new_password": str}``.
+
+
+        This is the ONLY protected endpoint that uses
+
+        ``get_current_user_allow_password_change`` — every other endpoint
+
+        rejects callers whose JWT/API-key carries ``must_change_password=True``
+
+        with HTTP 403 ``force_password_change``. The flag is cleared here
+
+        once the new password is persisted, and a fresh access token is
+
+        returned in the response so the client can drop the now-stale
+
+        token (whose payload still claims ``must_change_password=true``)
+
+        without a second login round-trip.'
+      operationId: change_password_api_profile_password_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              type: object
+              title: Payload
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Profile
+  /api/profile:
+    patch:
+      summary: Update Profile
+      description: 'Update the calling user''s own profile fields.
+
+
+        Body: ``{"first_name": str, "last_name": str}``.
+
+
+        Only the name is editable here. Email is the unique login identifier
+
+        and is intentionally NOT mutable through this endpoint (changing it
+
+        would also require re-verification, which is out of scope).
+
+        ``first_name`` must not be blank or whitespace-only; ``last_name`` is
+
+        required in the request but may be an empty string.
+
+
+        A fresh access token is returned alongside the updated user so the
+
+        client can swap its stored JWT in one round-trip — otherwise the old
+
+        token''s payload would keep claiming the stale name until it expired.'
+      operationId: update_profile_api_profile_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              type: object
+              title: Payload
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Profile
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

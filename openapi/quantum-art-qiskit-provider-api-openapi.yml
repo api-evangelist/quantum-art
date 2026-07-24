@@ -1,0 +1,504 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin qiskit-provider API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: qiskit-provider
+paths:
+  /provider/backends:
+    get:
+      tags:
+      - qiskit-provider
+      summary: List Backends
+      description: List quantum backends the calling user is allowed to use.
+      operationId: list_backends_provider_backends_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QiskitBackendsResponse'
+      security:
+      - HTTPBearer: []
+  /provider/backends/{backend_name}:
+    get:
+      tags:
+      - qiskit-provider
+      summary: Get Backend Details
+      description: Get detailed backend information.
+      operationId: get_backend_details_provider_backends__backend_name__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: backend_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Backend Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QiskitBackendDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /provider/jobs:
+    post:
+      tags:
+      - qiskit-provider
+      summary: Submit Job
+      description: Submit a quantum job for execution.
+      operationId: submit_job_provider_jobs_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QiskitJobRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QiskitJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /provider/jobs/{job_id}:
+    get:
+      tags:
+      - qiskit-provider
+      summary: Get Job Status
+      description: Get job status and progress.
+      operationId: get_job_status_provider_jobs__job_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QiskitJobStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - qiskit-provider
+      summary: Cancel Job
+      description: Cancel a quantum job.
+      operationId: cancel_job_provider_jobs__job_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QiskitJobCancelResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /provider/jobs/{job_id}/result:
+    get:
+      tags:
+      - qiskit-provider
+      summary: Get Job Result
+      description: Get job result (measurement counts).
+      operationId: get_job_result_provider_jobs__job_id__result_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    QiskitBackendsResponse:
+      properties:
+        backends:
+          items:
+            $ref: '#/components/schemas/QiskitBackend'
+          type: array
+          title: Backends
+      type: object
+      required:
+      - backends
+      title: QiskitBackendsResponse
+      description: Response model for backend listing.
+    QiskitJobCancelResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          title: Status
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - job_id
+      - status
+      - message
+      title: QiskitJobCancelResponse
+      description: Response model for job cancellation.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    QiskitJobResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          title: Status
+        created_at:
+          type: string
+          title: Created At
+        backend:
+          type: string
+          title: Backend
+        shots:
+          type: integer
+          title: Shots
+      type: object
+      required:
+      - job_id
+      - status
+      - created_at
+      - backend
+      - shots
+      title: QiskitJobResponse
+      description: Response model for job submission.
+    QiskitJobStatusResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          title: Status
+        backend:
+          type: string
+          title: Backend
+        created_at:
+          type: string
+          title: Created At
+        started_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Started At
+        completed_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Completed At
+        progress:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Progress
+          default: 0.0
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+      type: object
+      required:
+      - job_id
+      - status
+      - backend
+      - created_at
+      title: QiskitJobStatusResponse
+      description: Response model for job status query.
+    QiskitBackendDetailResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        backend_type:
+          type: string
+          title: Backend Type
+        num_qubits:
+          type: integer
+          title: Num Qubits
+        basis_gates:
+          items:
+            type: string
+          type: array
+          title: Basis Gates
+        coupling_map:
+          anyOf:
+          - items:
+              items:
+                type: integer
+              type: array
+            type: array
+          - type: 'null'
+          title: Coupling Map
+        gate_errors:
+          anyOf:
+          - additionalProperties:
+              type: number
+            type: object
+          - type: 'null'
+          title: Gate Errors
+        readout_errors:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Readout Errors
+        calibration_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Calibration Date
+        status:
+          type: string
+          title: Status
+        max_shots:
+          type: integer
+          title: Max Shots
+        max_experiments:
+          type: integer
+          title: Max Experiments
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        queue_length:
+          type: integer
+          title: Queue Length
+          default: 0
+      type: object
+      required:
+      - name
+      - backend_type
+      - num_qubits
+      - basis_gates
+      - status
+      - max_shots
+      - max_experiments
+      title: QiskitBackendDetailResponse
+      description: Response model for detailed backend information.
+    QiskitJobRequest:
+      properties:
+        backend:
+          type: string
+          title: Backend
+          description: Backend name to execute on
+        circuit:
+          additionalProperties: true
+          type: object
+          title: Circuit
+          description: Single quantum circuit in QASM format
+        shots:
+          type: integer
+          maximum: 1000000.0
+          minimum: 1.0
+          title: Shots
+          description: Number of shots to execute
+          default: 1024
+        memory:
+          type: boolean
+          title: Memory
+          description: Whether to return memory data
+          default: false
+        parameters:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Parameters
+          description: Execution parameters
+        metadata:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Job annotations
+        client:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Client
+          description: Client SDK metadata
+      type: object
+      required:
+      - backend
+      - circuit
+      title: QiskitJobRequest
+      description: Request model for Qiskit job submission.
+    QiskitBackend:
+      properties:
+        name:
+          type: string
+          title: Name
+        backend_type:
+          type: string
+          title: Backend Type
+        num_qubits:
+          type: integer
+          title: Num Qubits
+        basis_gates:
+          items:
+            type: string
+          type: array
+          title: Basis Gates
+        status:
+          type: string
+          title: Status
+        max_shots:
+          type: integer
+          title: Max Shots
+        max_experiments:
+          type: integer
+          title: Max Experiments
+        coupling_map:
+          anyOf:
+          - items:
+              items:
+                type: integer
+              type: array
+            type: array
+          - type: 'null'
+          title: Coupling Map
+        gate_errors:
+          anyOf:
+          - additionalProperties:
+              type: number
+            type: object
+          - type: 'null'
+          title: Gate Errors
+        readout_errors:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Readout Errors
+        calibration_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Calibration Date
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        queue_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Queue Length
+      type: object
+      required:
+      - name
+      - backend_type
+      - num_qubits
+      - basis_gates
+      - status
+      - max_shots
+      - max_experiments
+      title: QiskitBackend
+      description: Backend information model.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

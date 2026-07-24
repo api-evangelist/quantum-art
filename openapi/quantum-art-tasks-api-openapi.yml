@@ -1,0 +1,282 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Tasks API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Tasks
+paths:
+  /api/tasks:
+    post:
+      summary: Create Task
+      description: "Create a new generic task (admin only).\n\n`type` must be in `_ALLOWED_GENERIC_TASK_TYPES`. Specialized task types\nhave their own dedicated endpoints with the right pre-flight validation:\n\n  - qiskit_job: created via POST /provider/jobs (validates backend,\n    circuit constraints, QASM format; uploads artifacts; maintains\n    the job_id<->task_id mapping). Submitting it through this generic\n    endpoint would bypass all of that, so it's rejected here."
+      operationId: create_task_api_tasks_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              title: Task Request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+    get:
+      summary: List Tasks
+      description: List tasks for the current user.
+      operationId: list_tasks_api_tasks_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 50
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+  /api/tasks/{task_id}:
+    get:
+      summary: Get Task
+      description: Get task details by ID.
+      operationId: get_task_api_tasks__task_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+    delete:
+      summary: Cancel Task Endpoint
+      description: 'Cancel a task by setting cancel_request and updating processing entries.
+
+
+        Authorization is performed here (owner or admin); the existence and
+
+        terminal-state checks plus the Redis write are delegated to
+
+        qaas_core.tasks.request_cancel so the same logic is shared with
+
+        /provider/jobs/{job_id}.'
+      operationId: cancel_task_endpoint_api_tasks__task_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+  /api/tasks/{task_id}/result:
+    get:
+      summary: Download Task Result
+      description: 'Download a task''s final result (Content-Disposition: result.<ext>).'
+      operationId: download_task_result_api_tasks__task_id__result_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+  /api/tasks/{task_id}/result/view:
+    get:
+      summary: View Task Result
+      description: Text-mode view of a task's final result (for the in-app viewer).
+      operationId: view_task_result_api_tasks__task_id__result_view_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+  /api/tasks/{task_id}/input:
+    get:
+      summary: Download Task Input
+      description: Download a task's original input circuit.
+      operationId: download_task_input_api_tasks__task_id__input_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+  /api/tasks/{task_id}/input/view:
+    get:
+      summary: View Task Input
+      description: Text-mode view of a task's original input circuit.
+      operationId: view_task_input_api_tasks__task_id__input_view_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Tasks
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,28 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Orb.mp4 API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Orb.mp4
+paths:
+  /orb.mp4:
+    get:
+      summary: Serve Orb Video
+      description: 'Serve the phase-space "rotating points" background video for the login screen.
+
+        FileResponse handles HTTP Range requests, so the browser can stream/loop it.'
+      operationId: serve_orb_video_orb_mp4_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Orb.mp4
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

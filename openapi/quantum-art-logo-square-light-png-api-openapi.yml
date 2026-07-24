@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Logo Square Light.png API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Logo Square Light.png
+paths:
+  /logo-square-light.png:
+    get:
+      summary: Serve Logo Square Light
+      description: Serve square light (white) icon for dark surfaces (e.g. the black header).
+      operationId: serve_logo_square_light_logo_square_light_png_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Logo Square Light.png
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

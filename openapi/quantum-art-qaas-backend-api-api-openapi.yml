@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin QaaS Backend API API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: QaaS Backend API
+paths:
+  /:
+    get:
+      summary: Root Redirect
+      description: Serve React frontend index.html.
+      operationId: root_redirect__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - QaaS Backend API
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

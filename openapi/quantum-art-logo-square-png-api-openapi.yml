@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Logo Square.png API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Logo Square.png
+paths:
+  /logo-square.png:
+    get:
+      summary: Serve Logo Square
+      description: Serve square logo.
+      operationId: serve_logo_square_logo_square_png_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Logo Square.png
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

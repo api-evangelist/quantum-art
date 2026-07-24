@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: QaaS Backend admin Register API
+  description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
+  version: 1.0.0
+tags:
+- name: Register
+paths:
+  /register:
+    get:
+      summary: Serve Register
+      description: Serve React app for register route.
+      operationId: serve_register_register_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Register
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
