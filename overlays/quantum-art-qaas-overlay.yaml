@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Quantum Art QaaS Backend API
+  version: 1.0.0
+extends: openapi/quantum-art-qaas-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: quantum-art
+    x-apievangelist-category: quantum-computing
+    x-apievangelist-note: >-
+      Qiskit-provider-compatible Quantum-as-a-Service backend. Auth is bearer
+      token / account API key. List endpoints page with limit + offset.
+- target: $.servers
+  update:
+  - url: https://qaas.quantum-art.tech
+    description: Production QaaS Backend API (harvested; no servers[] in source spec)

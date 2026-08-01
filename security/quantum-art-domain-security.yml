@@ -1,0 +1,22 @@
+generated: '2026-07-20'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: quantum-art.tech
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 30 11:40:10 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: qaas.quantum-art.tech
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov  9 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: quantum-art.tech
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

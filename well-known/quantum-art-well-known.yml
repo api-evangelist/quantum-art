@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: searched
+host: https://qaas.quantum-art.tech
+note: >-
+  Probed the QaaS API host and the primary website for the standard
+  /.well-known/ discovery surface. None were served (all 404 / not present).
+  Absence is a valid recorded result.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/mcp.json
+  status: 404
+also_probed:
+- host: https://quantum-art.tech
+  path: /.well-known/security.txt
+  status: 404

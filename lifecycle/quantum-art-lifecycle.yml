@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/quantum-art-qaas-openapi-original.json
+versioning:
+  scheme: none-explicit
+  current: '1.0.0'
+  detail: >-
+    Single unversioned QaaS Backend API; info.version is 1.0.0. No URI-path or
+    header version negotiation is documented.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: No deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+status_page:
+  url: null
+  detail: >-
+    No status page found (status.quantum-art.tech does not resolve). A /health
+    endpoint exists (GET /health -> {"status":"healthy"}) but is not a public
+    status page.
+deprecated_operations: []
+health_endpoint: https://qaas.quantum-art.tech/health

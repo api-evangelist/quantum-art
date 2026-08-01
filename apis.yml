@@ -1,8 +1,17 @@
 aid: quantum-art
 name: Quantum Art
-description: Quantum Art is a company surfaced as a portfolio company of battery-ventures and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Quantum Art is a quantum computing company building best-in-class, scalable
+  quantum computers for commercial applications. Its technology combines advanced
+  multi-qubit gates that implement up to 1,000 standard two-qubit operations in a
+  single action with a dynamically reconfigurable multi-core trapped-ion
+  architecture that runs tens of independent cores in parallel with microsecond
+  reconfiguration. Quantum Art targets chemistry and materials science, machine
+  learning, process optimization, and finance. It exposes its systems through a
+  Quantum-as-a-Service (QaaS) platform whose QaaS Backend API offers a
+  Qiskit-provider-compatible interface for listing backends, submitting and
+  managing quantum jobs, retrieving results, plus account, task, artifact, and
+  administration management. Backed by Battery Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/quantum-art/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,14 +19,420 @@ x-backed-by:
 - battery-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v1
+image: https://qaas.quantum-art.tech/logo-square.png
 tags:
 - Company
-apis: []
+- Quantum Computing
+- Quantum as a Service
+- Qiskit
+- Developer Tools
+- Machine Learning
+- Optimization
+- Finance
+- Chemistry
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: quantum-art:quantum-art-admin-api
+  name: Quantum Art admin API
+  description: The admin API from Quantum Art — 12 operation(s) for admin.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - admin
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-admin-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-apple-touch-icon-png-api
+  name: Quantum Art Apple Touch Icon.png API
+  description: The Apple Touch Icon.png API from Quantum Art — 1 operation(s) for apple touch icon.png.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Apple Touch Icon.png
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-apple-touch-icon-png-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-artifacts-api
+  name: Quantum Art Artifacts API
+  description: The Artifacts API from Quantum Art — 2 operation(s) for artifacts.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Artifacts
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-artifacts-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-auth-api
+  name: Quantum Art Auth API
+  description: The Auth API from Quantum Art — 5 operation(s) for auth.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-auth-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-dashboard-api
+  name: Quantum Art Dashboard API
+  description: The Dashboard API from Quantum Art — 1 operation(s) for dashboard.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-dashboard-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-docs-api
+  name: Quantum Art Docs API
+  description: The Docs API from Quantum Art — 1 operation(s) for docs.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Docs
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-docs-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-documentation-api
+  name: Quantum Art Documentation API
+  description: The Documentation API from Quantum Art — 1 operation(s) for documentation.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Documentation
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-documentation-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-favicon-png-api
+  name: Quantum Art Favicon.png API
+  description: The Favicon.png API from Quantum Art — 1 operation(s) for favicon.png.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Favicon.png
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-favicon-png-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-health-api
+  name: Quantum Art Health API
+  description: The Health API from Quantum Art — 1 operation(s) for health.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-health-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-legal-api
+  name: Quantum Art Legal API
+  description: The Legal API from Quantum Art — 1 operation(s) for legal.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Legal
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-legal-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-login-api
+  name: Quantum Art Login API
+  description: The Login API from Quantum Art — 1 operation(s) for login.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Login
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-login-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-logo-square-light-png-api
+  name: Quantum Art Logo Square Light.png API
+  description: >-
+    The Logo Square Light.png API from Quantum Art — 1 operation(s) for logo square light.png.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Logo Square Light.png
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-logo-square-light-png-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-logo-square-png-api
+  name: Quantum Art Logo Square.png API
+  description: The Logo Square.png API from Quantum Art — 1 operation(s) for logo square.png.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Logo Square.png
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-logo-square-png-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-logo-wide-dark-png-api
+  name: Quantum Art Logo Wide Dark.png API
+  description: The Logo Wide Dark.png API from Quantum Art — 1 operation(s) for logo wide dark.png.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Logo Wide Dark.png
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-logo-wide-dark-png-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-logo-wide-png-api
+  name: Quantum Art Logo Wide.png API
+  description: The Logo Wide.png API from Quantum Art — 1 operation(s) for logo wide.png.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Logo Wide.png
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-logo-wide-png-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-orb-mp4-api
+  name: Quantum Art Orb.mp4 API
+  description: The Orb.mp4 API from Quantum Art — 1 operation(s) for orb.mp4.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Orb.mp4
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-orb-mp4-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-orb-poster-jpg-api
+  name: Quantum Art Orb Poster.jpg API
+  description: The Orb Poster.jpg API from Quantum Art — 1 operation(s) for orb poster.jpg.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Orb Poster.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-orb-poster-jpg-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-profile-api
+  name: Quantum Art Profile API
+  description: The Profile API from Quantum Art — 4 operation(s) for profile.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-profile-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-qaas-backend-api-api
+  name: Quantum Art QaaS Backend API API
+  description: The QaaS Backend API API from Quantum Art — 1 operation(s) for qaas backend api.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - QaaS Backend API
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-qaas-backend-api-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-qiskit-provider-api
+  name: Quantum Art qiskit-provider API
+  description: The qiskit-provider API from Quantum Art — 5 operation(s) for qiskit-provider.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - qiskit-provider
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-qiskit-provider-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-register-api
+  name: Quantum Art Register API
+  description: The Register API from Quantum Art — 1 operation(s) for register.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Register
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-register-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-registration-api
+  name: Quantum Art registration API
+  description: The registration API from Quantum Art — 2 operation(s) for registration.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - registration
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-registration-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-tasks-api
+  name: Quantum Art Tasks API
+  description: The Tasks API from Quantum Art — 6 operation(s) for tasks.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+- aid: quantum-art:quantum-art-user-api
+  name: Quantum Art User API
+  description: The User API from Quantum Art — 1 operation(s) for user.
+  humanURL: https://qaas.quantum-art.tech/documentation
+  baseURL: https://qaas.quantum-art.tech
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/quantum-art-user-api-openapi.yml
+  - type: Documentation
+    url: https://qaas.quantum-art.tech/documentation
+  - type: APIReference
+    url: https://qaas.quantum-art.tech/docs
+common:
+- type: DomainSecurity
+  url: security/quantum-art-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/quantum-art-agentic-access.yml
+- type: Authentication
+  url: authentication/quantum-art-authentication.yml
+- type: Conventions
+  url: conventions/quantum-art-conventions.yml
+- type: ErrorCatalog
+  url: errors/quantum-art-problem-types.yml
+- type: MCPServer
+  url: mcp/quantum-art-mcp.yml
+- type: LLMsTxt
+  url: llms/quantum-art-llms.txt
+- type: WellKnown
+  url: well-known/quantum-art-well-known.yml
+- type: DataModel
+  url: data-model/quantum-art-data-model.yml
+- type: Conformance
+  url: conformance/quantum-art-conformance.yml
+- type: Lifecycle
+  url: lifecycle/quantum-art-lifecycle.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Website
+  url: https://quantum-art.tech
+- type: DeveloperPortal
+  url: https://qaas.quantum-art.tech/documentation
+- type: Documentation
+  url: https://qaas.quantum-art.tech/documentation
+- type: APIReference
+  url: https://qaas.quantum-art.tech/docs
+- type: SignUp
+  url: https://qaas.quantum-art.tech/register
+- type: Login
+  url: https://qaas.quantum-art.tech/login
+- type: TermsOfService
+  url: https://qaas.quantum-art.tech/docs/end-user-agreement
+- type: Careers
+  url: https://quantum-art.tech/careers
+- type: LinkedIn
+  url: https://www.linkedin.com/company/quantum-art-tech/

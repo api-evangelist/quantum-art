@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/quantum-art-qaas-openapi-original.json
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: Published OpenAPI document declares openapi 3.1.0.
+- id: qiskit-provider
+  conforms: true
+  evidence: >-
+    /provider/backends and /provider/jobs operations follow the Qiskit
+    provider job model (list backends, submit QASM circuit + shots, poll
+    status, fetch result, cancel job).
+- id: http-bearer-auth
+  conforms: true
+  evidence: components.securitySchemes.HTTPBearer (type http, scheme bearer).
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security scheme declared.
+- id: openid-connect
+  conforms: false
+  evidence: No openIdConnect scheme; /.well-known/openid-configuration returns 404.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use FastAPI {"detail": ...} JSON, not application/problem+json.
+- id: pagination-offset
+  conforms: true
+  evidence: List endpoints expose limit + offset query parameters.
+compliance_program:
+  published: false
+  note: >-
+    No SOC 2 / ISO 27001 / PCI / HIPAA / FedRAMP certification page, trust
+    center, or security.txt was found on the API host or website. No
+    Compliance pointer is emitted (nothing published to cite).

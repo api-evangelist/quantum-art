@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/quantum-art-qaas-openapi-original.json
+format: fastapi-detail
+envelope:
+  media_type: application/json
+  shape: >-
+    Errors are returned as a JSON object with a `detail` field. Validation
+    errors (422) use FastAPI's HTTPValidationError schema: {"detail":
+    [{"loc": [...], "msg": "...", "type": "..."}]}. Other errors return
+    {"detail": "<message>"}. Responses are NOT RFC 9457 application/problem+json.
+problems:
+- status: 422
+  title: Validation Error
+  schema: HTTPValidationError
+  description: >-
+    Request failed schema validation; `detail[]` lists each offending field
+    (loc), a human message (msg), and an error type. Emitted by nearly every
+    operation that takes path/query/body parameters.
+  source: openapi/quantum-art-qaas-openapi-original.json
+notes: >-
+  The published OpenAPI declares only 200 (success) and 422 (validation)
+  responses per operation. Authentication (bearer/API key) failures and
+  authorization, not-found, conflict, and server errors are handled by the
+  FastAPI/Starlette stack at runtime with the same {"detail": "..."} envelope
+  but are not enumerated in the spec. Documented status codes should be
+  confirmed against https://qaas.quantum-art.tech/documentation.

@@ -1,0 +1,66 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/quantum-art-qaas-openapi-original.json
+docs: https://qaas.quantum-art.tech/documentation
+conventions:
+  base_url: https://qaas.quantum-art.tech
+  media_type: application/json
+  authentication:
+    style: bearer
+    header: Authorization
+    scheme: Bearer
+    detail: >-
+      JWT from /auth/login (optional MFA) for interactive use, or a per-account
+      API key from /api/profile/api-key for programmatic use. See
+      authentication/quantum-art-authentication.yml.
+  authorization:
+    roles:
+    - user
+    - admin
+    detail: >-
+      Provider (qiskit-provider), task, artifact, and profile operations are
+      user-scoped; /admin/* operations require an administrator role.
+  pagination:
+    style: offset
+    params:
+    - name: limit
+      in: query
+    - name: offset
+      in: query
+    filters:
+    - name: search
+      in: query
+    - name: status
+      in: query
+    detail: >-
+      List endpoints (e.g. GET /api/tasks, GET /admin/users) page with
+      limit + offset query parameters and support search/status filtering.
+  idempotency:
+    supported: false
+    detail: >-
+      No Idempotency-Key header or idempotent-retry contract is documented in
+      the OpenAPI. Job submission (POST /provider/jobs, POST /api/tasks) is not
+      declared idempotent.
+  versioning:
+    scheme: none-explicit
+    api_version: '1.0.0'
+    detail: >-
+      A single unversioned QaaS Backend API; the info.version is 1.0.0. No
+      URI-path or header API version negotiation is documented.
+  error_envelope:
+    media_type: application/json
+    field: detail
+    detail: >-
+      FastAPI-style {"detail": ...}; validation errors use HTTPValidationError.
+      See errors/quantum-art-problem-types.yml.
+  jobs_model:
+    detail: >-
+      Quantum execution follows the Qiskit provider pattern: submit a job
+      (POST /provider/jobs) referencing a backend + QASM circuit + shots, poll
+      status (GET /provider/jobs/{job_id}), then fetch results
+      (GET /provider/jobs/{job_id}/result). Tasks (/api/tasks) wrap higher-level
+      asynchronous work with downloadable input/result artifacts.
+cross_links:
+  errors: errors/quantum-art-problem-types.yml
+  authentication: authentication/quantum-art-authentication.yml
+  lifecycle: lifecycle/quantum-art-lifecycle.yml

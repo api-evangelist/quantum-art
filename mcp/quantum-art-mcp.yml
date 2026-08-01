@@ -1,0 +1,46 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/quantum-art-qaas-openapi-original.json
+note: >-
+  No official hosted or remote MCP server was found for Quantum Art (no
+  /.well-known/mcp.json, no @modelcontextprotocol package, no registry entry).
+  This is a CANDIDATE tool list derived from the QaaS Backend API operations
+  most useful to an agent; it is not published by the provider.
+server:
+  name: quantum-art-qaas
+  transport: http
+auth:
+  type: bearer
+  detail: Requires an account bearer token / API key (see authentication/).
+tools:
+- name: list_backends
+  description: List available quantum backends.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#list_backends_provider_backends_get
+- name: get_backend_details
+  description: Get details/configuration for a named backend.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#get_backend_details_provider_backends__backend_name__get
+- name: submit_job
+  description: Submit a quantum circuit (QASM) job to a backend.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#submit_job_provider_jobs_post
+- name: get_job_status
+  description: Poll the status of a submitted job.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#get_job_status_provider_jobs__job_id__get
+- name: get_job_result
+  description: Retrieve the result of a completed job.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#get_job_result_provider_jobs__job_id__result_get
+- name: cancel_job
+  description: Cancel a running or queued job.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#cancel_job_provider_jobs__job_id__delete
+- name: create_task
+  description: Create a higher-level asynchronous task.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#create_task_api_tasks_post
+- name: list_tasks
+  description: List tasks with limit/offset paging and status/search filters.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#list_tasks_api_tasks_get
+- name: get_task
+  description: Get a single task by id.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#get_task_api_tasks__task_id__get
+- name: download_task_result
+  description: Download the result artifact for a task.
+  source_operation: openapi/quantum-art-qaas-openapi-original.json#download_task_result_api_tasks__task_id__result_get

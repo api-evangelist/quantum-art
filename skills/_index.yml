@@ -1,0 +1,14 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/quantum-art-qaas-openapi-original.json
+skills:
+- file: quantum-art-submit-quantum-job.md
+  name: Submit and retrieve a quantum job (Quantum Art QaaS)
+  api: openapi/quantum-art-qaas-openapi-original.json
+  operations:
+  - list_backends_provider_backends_get
+  - get_backend_details_provider_backends__backend_name__get
+  - submit_job_provider_jobs_post
+  - get_job_status_provider_jobs__job_id__get
+  - get_job_result_provider_jobs__job_id__result_get
+  - cancel_job_provider_jobs__job_id__delete

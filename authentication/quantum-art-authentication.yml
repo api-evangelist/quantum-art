@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/quantum-art-qaas-openapi-original.json
+docs: https://qaas.quantum-art.tech/documentation
+summary:
+  types:
+  - http
+  - apiKey
+  http_schemes:
+  - bearer
+  notes: >-
+    The QaaS Backend API authenticates requests with a bearer token
+    (Authorization: Bearer <token>). Interactive sessions obtain a JWT via
+    /auth/login (with optional MFA verification at /auth/login/verify-mfa).
+    Programmatic access uses a per-account API key managed from the profile
+    surface (GET /api/profile/api-key, POST /api/profile/api-key/regenerate).
+schemes:
+- name: HTTPBearer
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/quantum-art-qaas-openapi-original.json
+- name: APIKey
+  type: apiKey
+  in: header
+  x-managed-by:
+  - GET /api/profile/api-key
+  - POST /api/profile/api-key/regenerate
+  x-note: >-
+    Account API key issued/rotated from the user profile; presented as a bearer
+    credential to the API. Not declared as a distinct OpenAPI securityScheme.
+  sources:
+  - https://qaas.quantum-art.tech/documentation

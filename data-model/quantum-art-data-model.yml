@@ -1,0 +1,56 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/quantum-art-qaas-openapi-original.json
+entities:
+- name: Backend
+  schema: QiskitBackend
+  description: A quantum backend (device/simulator) jobs can execute on.
+  key: backend_name
+- name: Job
+  schema: QiskitJobResponse
+  description: A submitted quantum execution (Qiskit provider job).
+  key: job_id
+  fields:
+  - backend
+  - circuit
+  - shots
+  - memory
+  - parameters
+  - metadata
+- name: Task
+  description: >-
+    Higher-level asynchronous unit of work with downloadable input and result
+    artifacts (schema not exposed as a named component in the spec).
+  key: task_id
+- name: Artifact
+  description: Downloadable/viewable input or result payload attached to a task.
+  key: artifact_ref
+- name: User
+  description: Platform account (profile, API key, MFA); managed under /admin/users.
+  key: user_id
+- name: RegistrationRequest
+  description: Pending account-registration request awaiting admin confirmation.
+  key: req_id
+relationships:
+- from: Job
+  to: Backend
+  type: belongs_to
+  via: backend
+- from: Task
+  to: Artifact
+  type: has_many
+  via: artifact_ref
+- from: Task
+  to: User
+  type: belongs_to
+  via: owner
+- from: User
+  to: Task
+  type: has_many
+- from: RegistrationRequest
+  to: User
+  type: has_one
+notes: >-
+  Only Qiskit backend/job schemas are named components in the OpenAPI; Task,
+  Artifact, User, and RegistrationRequest are inferred from their endpoint
+  surfaces (path parameters and operation semantics), not from response schemas.
