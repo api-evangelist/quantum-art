@@ -394,6 +394,8 @@ apis:
   - type: APIReference
     url: https://qaas.quantum-art.tech/docs
 common:
+- type: Overlay
+  url: overlays/quantum-art-qaas-overlay.yaml
 - type: DomainSecurity
   url: security/quantum-art-domain-security.yml
 - type: AgenticAccess
