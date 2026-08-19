@@ -1,0 +1,104 @@
+{
+  "item": [
+    {
+      "id": "a5b49a5c-7357-4c38-97ae-9aefd1383101",
+      "name": "Docs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5d681c3b-a989-4e52-9df6-1d7ea6775c5b",
+          "name": "Serve End User Agreement",
+          "request": {
+            "name": "Serve End User Agreement",
+            "description": {
+              "content": "Serve React app for the End User Agreement route (client-side routed).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "docs",
+                "end-user-agreement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3eeb4c94-b132-4193-85c4-5c3bb1bf3340",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docs",
+                    "end-user-agreement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4c4e2c86-518a-473c-b53e-928c1f8ce621",
+    "name": "QaaS Backend admin Docs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Quantum-as-a-Service Backend providing task management, metrics, and real-time communication",
+      "type": "text/plain"
+    }
+  }
+}

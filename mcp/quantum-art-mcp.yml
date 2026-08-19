@@ -2,11 +2,9 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/quantum-art-qaas-openapi-original.json
-note: >-
-  No official hosted or remote MCP server was found for Quantum Art (no
-  /.well-known/mcp.json, no @modelcontextprotocol package, no registry entry).
-  This is a CANDIDATE tool list derived from the QaaS Backend API operations
-  most useful to an agent; it is not published by the provider.
+note: No official hosted or remote MCP server was found for Quantum Art (no /.well-known/mcp.json, no
+  @modelcontextprotocol package, no registry entry). This is a CANDIDATE tool list derived from the QaaS
+  Backend API operations most useful to an agent; it is not published by the provider.
 server:
   name: quantum-art-qaas
   transport: http
@@ -44,3 +42,9 @@ tools:
 - name: download_task_result
   description: Download the result artifact for a task.
   source_operation: openapi/quantum-art-qaas-openapi-original.json#download_task_result_api_tasks__task_id__result_get
+deployment:
+  mode: none
+  verified: derived
+  tools: 10
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Legal API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Legal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Serve Legal Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/legal/:filename",
+            "params": [
+              {
+                "name": "filename",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Serve a static legal HTML document (e.g. end-user-agreement.html).\n\nThe SPA page at /docs/end-user-agreement embeds this file in an <iframe>;\nbasename() guards against path traversal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

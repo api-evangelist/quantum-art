@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Register API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Register",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Serve Register",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/register"
+          },
+          "docs": "Serve React app for register route."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

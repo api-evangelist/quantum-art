@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Profile API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/profile/api-key",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the current user's API key for programmatic access.\n\nReturns the user's API key which can be used with:\n- Qiskit Provider for quantum circuit submission\n- Direct API calls as Bearer token\n- Any programmatic integration\n\nSecurity: Only returns the API key to the authenticated user themselves."
+        },
+        {
+          "info": {
+            "name": "Regenerate Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/profile/api-key/regenerate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rotate the calling user's API key.\n\nBody: ``{\"expires_in\": \"1d\" | \"2w\" | \"1m\" | \"3m\" | \"6m\"}``.\nGenerates a new ``qaas_<urlsafe>`` token, clears any prior revocation,\nand stamps ``api_key_expires_at = NOW() + interval``. The old key stops\nauthenticating immediately (the row's value is overwritten)."
+        },
+        {
+          "info": {
+            "name": "Change Password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/profile/password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rotate the calling user's password.\n\nBody: ``{\"current_password\": str, \"new_password\": str}``.\n\nThis is the ONLY protected endpoint that uses\n``get_current_user_allow_password_change`` — every other endpoint\nrejects callers whose JWT/API-key carries ``must_change_password=True``\nwith HTTP 403 ``force_password_change``. The flag is cleared here\nonce the new password is persisted, and a fresh access token is\nreturned in the response so the client can drop the now-stale\ntoken (whose payload still c"
+        },
+        {
+          "info": {
+            "name": "Update Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/profile",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the calling user's own profile fields.\n\nBody: ``{\"first_name\": str, \"last_name\": str}``.\n\nOnly the name is editable here. Email is the unique login identifier\nand is intentionally NOT mutable through this endpoint (changing it\nwould also require re-verification, which is out of scope).\n``first_name`` must not be blank or whitespace-only; ``last_name`` is\nrequired in the request but may be an empty string.\n\nA fresh access token is returned alongside the updated user so the\nclient can swap "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

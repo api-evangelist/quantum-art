@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Favicon.png API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Favicon.png",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Favicon",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/favicon.png"
+          },
+          "docs": "Serve favicon."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

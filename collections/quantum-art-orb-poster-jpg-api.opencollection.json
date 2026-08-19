@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Orb Poster.jpg API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orb Poster.jpg",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Serve Orb Poster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orb-poster.jpg"
+          },
+          "docs": "Serve the still poster for the login background (reduced-motion / video fallback)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

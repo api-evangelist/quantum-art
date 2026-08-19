@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin registration API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "registration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Registration Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/registration-requests",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated subset of pending,verified,confirmed,rejected,verification_expired. Defaults to 'verified' (the rows admins can act on)."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring search across first_name, last_name, email, organization."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List registration requests for the admin Pending Users tab.\n\nSorted by created_at DESC so newest submissions surface first."
+        },
+        {
+          "info": {
+            "name": "Confirm Registration Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/registration-requests/:req_id/confirm",
+            "params": [
+              {
+                "name": "req_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark a verified registration request as admin-confirmed.\n\nBody (optional)::\n\n    {\"notes\": \"Saw them at QIP poster session\"}\n\nThe endpoint records the admin event (confirmed_at, confirmed_by,\noptional notes) and flips status verified -> confirmed. The\nsubscription_manager worker then creates the matching user row and\ndrafts a welcome email; the API does not block on either.\n\nIdempotency: any non-verified state returns 409. Race-safe via the\npre-update WHERE clause."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

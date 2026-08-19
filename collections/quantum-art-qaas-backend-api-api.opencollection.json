@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin QaaS Backend API API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "QaaS Backend API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Root Redirect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/"
+          },
+          "docs": "Serve React frontend index.html."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

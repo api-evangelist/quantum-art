@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "468a9bac-9955-450d-a11f-5b1e788cc55a",
+      "name": "Apple Touch Icon.png",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a7c5e1c7-b6e4-44f7-bf0d-239abccc6d29",
+          "name": "Apple Touch Icon",
+          "request": {
+            "name": "Apple Touch Icon",
+            "description": {
+              "content": "Serve the Apple touch icon (company logo mark).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apple-touch-icon.png"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecf1a43a-ed2b-41a6-a5ab-13b0ef170302",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apple-touch-icon.png"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2540654e-4ab6-4be7-9154-b2576a8c4b1c",
+    "name": "QaaS Backend admin Apple Touch Icon.png API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Quantum-as-a-Service Backend providing task management, metrics, and real-time communication",
+      "type": "text/plain"
+    }
+  }
+}

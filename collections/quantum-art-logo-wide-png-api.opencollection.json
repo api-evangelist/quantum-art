@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Logo Wide.png API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logo Wide.png",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Serve Logo Wide",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/logo-wide.png"
+          },
+          "docs": "Serve wide logo."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

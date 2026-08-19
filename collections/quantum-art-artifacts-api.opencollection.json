@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Artifacts API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Artifacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download Artifact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/artifacts/download",
+            "params": [
+              {
+                "name": "artifact_ref",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download artifact by reference.\n\nArgs:\n    artifact_ref: URL-encoded artifact reference (S3 path or local file path)\n    current_user: Authenticated user from JWT token\n    \nReturns:\n    StreamingResponse with file content\n    \nSecurity:\n    - Validates user has access to the task that owns the artifact\n    - Extracts task_id from artifact_ref path\n    - Checks user is task owner or admin"
+        },
+        {
+          "info": {
+            "name": "View Artifact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/artifacts/view",
+            "params": [
+              {
+                "name": "artifact_ref",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "View artifact content as text.\n\nArgs:\n    artifact_ref: URL-encoded artifact reference (S3 path or local file path)\n    current_user: Authenticated user from JWT token\n    \nReturns:\n    JSON response with filename and content as text\n    \nSecurity:\n    - Same authorization as download endpoint\n    - Content limited to text files"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

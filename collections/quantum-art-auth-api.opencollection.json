@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin Auth API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Phase 1 of login: validate the password, then either issue tokens\n(bypass accounts / MFA disabled) or start an email MFA challenge.\n\nWhen a challenge is started this returns ``{mfa_required: true, mfa_token}``\nand emails a one-time code; the client completes the flow via\n``POST /auth/login/verify-mfa``."
+        },
+        {
+          "info": {
+            "name": "Verify Mfa",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/login/verify-mfa",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Phase 2 of login: verify the emailed code and issue JWT tokens."
+        },
+        {
+          "info": {
+            "name": "Resend Mfa",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/login/resend-mfa",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Re-send a fresh verification code for an in-flight MFA session."
+        },
+        {
+          "info": {
+            "name": "Register",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Public registration endpoint — creates a pending registration request.\n\nBody shape (form v2)::\n\n    {\n        \"first_name\":     str,                      # required\n        \"last_name\":      str,                      # required\n        \"email\":          str,                      # required\n        \"organization\":   str,                      # required\n        \"form_answers\": {\n            \"heard_from\":            str,           # required\n            \"interest\":              str,           # req"
+        },
+        {
+          "info": {
+            "name": "Verify Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auth/verify-email/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Flip a pending request to 'verified' via the email link.\n\nReturns a friendly HTML page rather than a JSON body — this URL is\nclicked from a mail client, not consumed by JavaScript. The HTTP\nstatus is 200 on success or 400 on a failure case (invalid /\nexpired) so any monitoring still sees the right signal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

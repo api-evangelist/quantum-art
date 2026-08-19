@@ -1,0 +1,293 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QaaS Backend admin API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Admin Observability Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/config",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Admin UI runtime config: whether the Grafana observability link is live and\nits URL. Read from env (GRAFANA_PROXY_*); flip without a rebuild. Admin-gated\nby the router so the URL is never exposed to non-admins."
+        },
+        {
+          "info": {
+            "name": "Admin Grafana Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/grafana-session",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mint a one-time ticket for the Grafana proxy. A new-tab navigation to\n/grafana/ can't carry the JWT Authorization header, so the SPA calls this\n(authenticated XHR), then opens /grafana/?__t=<ticket>; the proxy exchanges\nthe ticket for a scoped HttpOnly session cookie."
+        },
+        {
+          "info": {
+            "name": "Health Check Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/health",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Detailed health check with component status (admin only).\n\nPublic liveness probe lives at GET /health; this endpoint exposes per-component\ndetail and is gated behind the admin role at the router level."
+        },
+        {
+          "info": {
+            "name": "Get Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/metrics",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get current aggregated metrics (admin only)."
+        },
+        {
+          "info": {
+            "name": "Debug Publish Webserver Metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/debug/publish-webserver-metric",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Debug endpoint to test webserver metrics publishing (admin only)."
+        },
+        {
+          "info": {
+            "name": "Get Service Maintenance Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/services/:service_name/maintenance",
+            "params": [
+              {
+                "name": "service_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return current maintenance status for a service (admin-only)."
+        },
+        {
+          "info": {
+            "name": "Enable Service Maintenance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/services/:service_name/maintenance/enable",
+            "params": [
+              {
+                "name": "service_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "ttl_seconds",
+                "value": "",
+                "type": "query",
+                "description": "Optional TTL in seconds for auto-disable"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enable maintenance mode for a service.\n\nWhile in maintenance the service stops claiming new tasks. The optional\nttl_seconds causes the maintenance flag to auto-clear after that many\nseconds. The maintenance_updates_subscription_task background watcher\nwill broadcast the change over WebSocket via Redis keyspace notifications."
+        },
+        {
+          "info": {
+            "name": "Disable Service Maintenance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/services/:service_name/maintenance/disable",
+            "params": [
+              {
+                "name": "service_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Disable maintenance mode for a service.\n\nClears the control key so the service resumes claiming tasks. The\nmaintenance_updates_subscription_task background watcher will\nbroadcast the change over WebSocket via Redis keyspace notifications."
+        },
+        {
+          "info": {
+            "name": "List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/users",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all users from database (admin only)."
+        },
+        {
+          "info": {
+            "name": "Update User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/admin/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update user details (admin only)."
+        },
+        {
+          "info": {
+            "name": "Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a user (admin only)."
+        },
+        {
+          "info": {
+            "name": "List Registration Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/registration-requests",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated subset of pending,verified,confirmed,rejected,verification_expired. Defaults to 'verified' (the rows admins can act on)."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring search across first_name, last_name, email, organization."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List registration requests for the admin Pending Users tab.\n\nSorted by created_at DESC so newest submissions surface first."
+        },
+        {
+          "info": {
+            "name": "Confirm Registration Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/registration-requests/:req_id/confirm",
+            "params": [
+              {
+                "name": "req_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark a verified registration request as admin-confirmed.\n\nBody (optional)::\n\n    {\"notes\": \"Saw them at QIP poster session\"}\n\nThe endpoint records the admin event (confirmed_at, confirmed_by,\noptional notes) and flips status verified -> confirmed. The\nsubscription_manager worker then creates the matching user row and\ndrafts a welcome email; the API does not block on either.\n\nIdempotency: any non-verified state returns 409. Race-safe via the\npre-update WHERE clause."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
