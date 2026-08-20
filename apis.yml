@@ -46,6 +46,16 @@ tags:
 - Quantum as a Service
 - Qiskit
 - Developer Tools
+- Machine-Learning
+- Optimization
+- Finance
+- Chemistry
+tags_raw:
+- Company
+- Quantum Computing
+- Quantum as a Service
+- Qiskit
+- Developer Tools
 - Machine Learning
 - Optimization
 - Finance
@@ -62,6 +72,8 @@ apis:
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
   tags:
+  - Admin
+  tags_raw:
   - admin
   properties:
   - type: OpenAPI
@@ -104,6 +116,8 @@ apis:
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -357,6 +371,8 @@ apis:
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
   tags:
+  - Registration
+  tags_raw:
   - registration
   properties:
   - type: OpenAPI
@@ -371,6 +387,8 @@ apis:
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
