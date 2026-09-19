@@ -141,6 +141,8 @@ apis:
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
   tags:
+  - Dashboards
+  tags_raw:
   - Dashboard
   properties:
   - type: OpenAPI
@@ -323,6 +325,8 @@ apis:
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
   tags:
+  - Profiles
+  tags_raw:
   - Profile
   properties:
   - type: OpenAPI
