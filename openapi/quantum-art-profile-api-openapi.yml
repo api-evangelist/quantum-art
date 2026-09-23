@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin Profile API
+  title: QaaS Backend Profile API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:
@@ -41,7 +41,7 @@ paths:
 
         Body: ``{"expires_in": "1d" | "2w" | "1m" | "3m" | "6m"}``.
 
-        Generates a new ``qaas_<urlsafe>`` token, clears any prior revocation,
+        Generates a new ``qaas_`` token, clears any prior revocation,
 
         and stamps ``api_key_expires_at = NOW() + interval``. The old key stops
 
@@ -172,15 +172,6 @@ paths:
       - Profile
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -207,6 +198,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin Auth API
+  title: QaaS Backend Auth API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:
@@ -101,7 +101,57 @@ paths:
       tags:
       - Auth
       summary: Register
-      description: "Public registration endpoint — creates a pending registration request.\n\nBody shape (form v2)::\n\n    {\n        \"first_name\":     str,                      # required\n        \"last_name\":      str,                      # required\n        \"email\":          str,                      # required\n        \"organization\":   str,                      # required\n        \"form_answers\": {\n            \"heard_from\":            str,           # required\n            \"interest\":              str,           # required\n            \"country_of_residency\":  str,           # required\n            \"additional_info\":       str | null,    # optional\n            \"keep_updated\":          bool            # optional marketing opt-in\n        },\n        \"legal_accepted\": bool,                     # must be true\n        \"recaptcha_token\": str | null               # reCAPTCHA v2 token\n    }\n\nNo credentials are collected: the activation pipeline mints them\nafter an admin confirms the request and the user completes\nactivation. See migration_2026_05_registration_v2.sql.\n\nThe `recaptcha_token` is the \"I'm not a robot\" response from the\npublic form. It is verified here (a no-op unless RECAPTCHA_SECRET_KEY\nis configured) and never persisted — `submit_request` ignores unknown\ntop-level keys."
+      description: 'Public registration endpoint — creates a pending registration request.
+
+
+        Body shape (form v2)::
+
+
+        {
+
+        "first_name": str, # required
+
+        "last_name": str, # required
+
+        "email": str, # required
+
+        "organization": str, # required
+
+        "form_answers": {
+
+        "heard_from": str, # required
+
+        "interest": str, # required
+
+        "country_of_residency": str, # required
+
+        "additional_info": str | null, # optional
+
+        "keep_updated": bool # optional marketing opt-in
+
+        },
+
+        "legal_accepted": bool, # must be true
+
+        "recaptcha_token": str | null # reCAPTCHA v2 token
+
+        }
+
+
+        No credentials are collected: the activation pipeline mints them
+
+        after an admin confirms the request and the user completes
+
+        activation. See migration_2026_05_registration_v2.sql.
+
+
+        The `recaptcha_token` is the "I''m not a robot" response from the
+
+        public form. It is verified here (a no-op unless RECAPTCHA_SECRET_KEY
+
+        is configured) and never persisted — `submit_request` ignores unknown
+
+        top-level keys.'
       operationId: register_auth_register_post
       requestBody:
         content:
@@ -160,15 +210,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -195,6 +236,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

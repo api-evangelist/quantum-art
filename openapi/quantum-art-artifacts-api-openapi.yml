@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin Artifacts API
+  title: QaaS Backend Artifacts API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:
@@ -9,7 +9,28 @@ paths:
   /api/artifacts/download:
     get:
       summary: Download Artifact
-      description: "Download artifact by reference.\n\nArgs:\n    artifact_ref: URL-encoded artifact reference (S3 path or local file path)\n    current_user: Authenticated user from JWT token\n    \nReturns:\n    StreamingResponse with file content\n    \nSecurity:\n    - Validates user has access to the task that owns the artifact\n    - Extracts task_id from artifact_ref path\n    - Checks user is task owner or admin"
+      description: 'Download artifact by reference.
+
+
+        Args:
+
+        artifact_ref: URL-encoded artifact reference (S3 path or local file path)
+
+        current_user: Authenticated user from JWT token
+
+
+        Returns:
+
+        StreamingResponse with file content
+
+
+        Security:
+
+        - Validates user has access to the task that owns the artifact
+
+        - Extracts task_id from artifact_ref path
+
+        - Checks user is task owner or admin'
       operationId: download_artifact_api_artifacts_download_get
       security:
       - HTTPBearer: []
@@ -37,7 +58,26 @@ paths:
   /api/artifacts/view:
     get:
       summary: View Artifact
-      description: "View artifact content as text.\n\nArgs:\n    artifact_ref: URL-encoded artifact reference (S3 path or local file path)\n    current_user: Authenticated user from JWT token\n    \nReturns:\n    JSON response with filename and content as text\n    \nSecurity:\n    - Same authorization as download endpoint\n    - Content limited to text files"
+      description: 'View artifact content as text.
+
+
+        Args:
+
+        artifact_ref: URL-encoded artifact reference (S3 path or local file path)
+
+        current_user: Authenticated user from JWT token
+
+
+        Returns:
+
+        JSON response with filename and content as text
+
+
+        Security:
+
+        - Same authorization as download endpoint
+
+        - Content limited to text files'
       operationId: view_artifact_api_artifacts_view_get
       security:
       - HTTPBearer: []
@@ -64,15 +104,6 @@ paths:
       - Artifacts
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -99,6 +130,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

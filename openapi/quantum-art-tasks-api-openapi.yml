@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin Tasks API
+  title: QaaS Backend Tasks API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:
@@ -9,7 +9,21 @@ paths:
   /api/tasks:
     post:
       summary: Create Task
-      description: "Create a new generic task (admin only).\n\n`type` must be in `_ALLOWED_GENERIC_TASK_TYPES`. Specialized task types\nhave their own dedicated endpoints with the right pre-flight validation:\n\n  - qiskit_job: created via POST /provider/jobs (validates backend,\n    circuit constraints, QASM format; uploads artifacts; maintains\n    the job_id<->task_id mapping). Submitting it through this generic\n    endpoint would bypass all of that, so it's rejected here."
+      description: 'Create a new generic task (admin only).
+
+
+        `type` must be in `_ALLOWED_GENERIC_TASK_TYPES`. Specialized task types
+
+        have their own dedicated endpoints with the right pre-flight validation:
+
+
+        - qiskit_job: created via POST /provider/jobs (validates backend,
+
+        circuit constraints, QASM format; uploads artifacts; maintains
+
+        the job_idtask_id mapping). Submitting it through this generic
+
+        endpoint would bypass all of that, so it''s rejected here.'
       operationId: create_task_api_tasks_post
       security:
       - HTTPBearer: []
@@ -130,7 +144,7 @@ paths:
   /api/tasks/{task_id}/result:
     get:
       summary: Download Task Result
-      description: 'Download a task''s final result (Content-Disposition: result.<ext>).'
+      description: 'Download a task''s final result (Content-Disposition: result.).'
       operationId: download_task_result_api_tasks__task_id__result_get
       security:
       - HTTPBearer: []
@@ -241,15 +255,6 @@ paths:
       - Tasks
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -276,6 +281,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

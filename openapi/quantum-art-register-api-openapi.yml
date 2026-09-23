@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin Register API
+  title: QaaS Backend Register API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:

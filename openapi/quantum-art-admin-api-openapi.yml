@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin API
+  title: QaaS Backend Admin API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:
-- name: admin
+- name: Admin
 paths:
   /admin/config:
     get:
       tags:
-      - admin
+      - Admin
       summary: Admin Observability Config
       description: 'Admin UI runtime config: whether the Grafana observability link is live and
 
@@ -28,13 +28,13 @@ paths:
   /admin/grafana-session:
     post:
       tags:
-      - admin
+      - Admin
       summary: Admin Grafana Session
       description: 'Mint a one-time ticket for the Grafana proxy. A new-tab navigation to
 
         /grafana/ can''t carry the JWT Authorization header, so the SPA calls this
 
-        (authenticated XHR), then opens /grafana/?__t=<ticket>; the proxy exchanges
+        (authenticated XHR), then opens /grafana/?__t=; the proxy exchanges
 
         the ticket for a scoped HttpOnly session cookie.'
       operationId: admin_grafana_session_admin_grafana_session_post
@@ -49,7 +49,7 @@ paths:
   /admin/health:
     get:
       tags:
-      - admin
+      - Admin
       summary: Health Check Details
       description: 'Detailed health check with component status (admin only).
 
@@ -69,7 +69,7 @@ paths:
   /admin/metrics:
     get:
       tags:
-      - admin
+      - Admin
       summary: Get Metrics
       description: Get current aggregated metrics (admin only).
       operationId: get_metrics_admin_metrics_get
@@ -84,7 +84,7 @@ paths:
   /admin/debug/publish-webserver-metric:
     get:
       tags:
-      - admin
+      - Admin
       summary: Debug Publish Webserver Metric
       description: Debug endpoint to test webserver metrics publishing (admin only).
       operationId: debug_publish_webserver_metric_admin_debug_publish_webserver_metric_get
@@ -99,7 +99,7 @@ paths:
   /admin/services/{service_name}/maintenance:
     get:
       tags:
-      - admin
+      - Admin
       summary: Get Service Maintenance Status
       description: Return current maintenance status for a service (admin-only).
       operationId: get_service_maintenance_status_admin_services__service_name__maintenance_get
@@ -127,7 +127,7 @@ paths:
   /admin/services/{service_name}/maintenance/enable:
     post:
       tags:
-      - admin
+      - Admin
       summary: Enable Service Maintenance
       description: 'Enable maintenance mode for a service.
 
@@ -174,7 +174,7 @@ paths:
   /admin/services/{service_name}/maintenance/disable:
     post:
       tags:
-      - admin
+      - Admin
       summary: Disable Service Maintenance
       description: 'Disable maintenance mode for a service.
 
@@ -209,7 +209,7 @@ paths:
   /admin/users:
     get:
       tags:
-      - admin
+      - Admin
       summary: List Users
       description: Get all users from database (admin only).
       operationId: list_users_admin_users_get
@@ -224,7 +224,7 @@ paths:
   /admin/users/{user_id}:
     put:
       tags:
-      - admin
+      - Admin
       summary: Update User
       description: Update user details (admin only).
       operationId: update_user_admin_users__user_id__put
@@ -259,7 +259,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - admin
+      - Admin
       summary: Delete User
       description: Delete a user (admin only).
       operationId: delete_user_admin_users__user_id__delete
@@ -287,7 +287,7 @@ paths:
   /admin/registration-requests:
     get:
       tags:
-      - admin
+      - Admin
       summary: List Registration Requests
       description: 'List registration requests for the admin Pending Users tab.
 
@@ -349,9 +349,29 @@ paths:
   /admin/registration-requests/{req_id}/confirm:
     post:
       tags:
-      - admin
+      - Admin
       summary: Confirm Registration Request
-      description: "Mark a verified registration request as admin-confirmed.\n\nBody (optional)::\n\n    {\"notes\": \"Saw them at QIP poster session\"}\n\nThe endpoint records the admin event (confirmed_at, confirmed_by,\noptional notes) and flips status verified -> confirmed. The\nsubscription_manager worker then creates the matching user row and\ndrafts a welcome email; the API does not block on either.\n\nIdempotency: any non-verified state returns 409. Race-safe via the\npre-update WHERE clause."
+      description: 'Mark a verified registration request as admin-confirmed.
+
+
+        Body (optional)::
+
+
+        {"notes": "Saw them at QIP poster session"}
+
+
+        The endpoint records the admin event (confirmed_at, confirmed_by,
+
+        optional notes) and flips status verified -> confirmed. The
+
+        subscription_manager worker then creates the matching user row and
+
+        drafts a welcome email; the API does not block on either.
+
+
+        Idempotency: any non-verified state returns 409. Race-safe via the
+
+        pre-update WHERE clause.'
       operationId: confirm_registration_request_admin_registration_requests__req_id__confirm_post
       security:
       - HTTPBearer: []
@@ -385,15 +405,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -420,6 +431,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

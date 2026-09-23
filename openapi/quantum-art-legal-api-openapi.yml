@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin Legal API
+  title: QaaS Backend Legal API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:
@@ -12,7 +12,7 @@ paths:
       description: 'Serve a static legal HTML document (e.g. end-user-agreement.html).
 
 
-        The SPA page at /docs/end-user-agreement embeds this file in an <iframe>;
+        The SPA page at /docs/end-user-agreement embeds this file in an ;
 
         basename() guards against path traversal.'
       operationId: serve_legal_document_legal__filename__get
@@ -39,15 +39,6 @@ paths:
       - Legal
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -74,6 +65,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

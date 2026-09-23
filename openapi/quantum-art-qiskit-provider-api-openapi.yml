@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QaaS Backend admin qiskit-provider API
+  title: QaaS Backend Qiskit Provider API
   description: Quantum-as-a-Service Backend providing task management, metrics, and real-time communication
   version: 1.0.0
 tags:
@@ -178,24 +178,6 @@ components:
       - backends
       title: QiskitBackendsResponse
       description: Response model for backend listing.
-    QiskitJobCancelResponse:
-      properties:
-        job_id:
-          type: string
-          title: Job Id
-        status:
-          type: string
-          title: Status
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - job_id
-      - status
-      - message
-      title: QiskitJobCancelResponse
-      description: Response model for job cancellation.
     HTTPValidationError:
       properties:
         detail:
@@ -257,49 +239,6 @@ components:
       - shots
       title: QiskitJobResponse
       description: Response model for job submission.
-    QiskitJobStatusResponse:
-      properties:
-        job_id:
-          type: string
-          title: Job Id
-        status:
-          type: string
-          title: Status
-        backend:
-          type: string
-          title: Backend
-        created_at:
-          type: string
-          title: Created At
-        started_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Started At
-        completed_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Completed At
-        progress:
-          type: number
-          maximum: 1.0
-          minimum: 0.0
-          title: Progress
-          default: 0.0
-        error_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error Message
-      type: object
-      required:
-      - job_id
-      - status
-      - backend
-      - created_at
-      title: QiskitJobStatusResponse
-      description: Response model for job status query.
     QiskitBackendDetailResponse:
       properties:
         name:
@@ -373,6 +312,49 @@ components:
       - max_experiments
       title: QiskitBackendDetailResponse
       description: Response model for detailed backend information.
+    QiskitJobStatusResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          title: Status
+        backend:
+          type: string
+          title: Backend
+        created_at:
+          type: string
+          title: Created At
+        started_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Started At
+        completed_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Completed At
+        progress:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Progress
+          default: 0.0
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+      type: object
+      required:
+      - job_id
+      - status
+      - backend
+      - created_at
+      title: QiskitJobStatusResponse
+      description: Response model for job status query.
     QiskitJobRequest:
       properties:
         backend:
@@ -498,6 +480,24 @@ components:
       - max_experiments
       title: QiskitBackend
       description: Backend information model.
+    QiskitJobCancelResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        status:
+          type: string
+          title: Status
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - job_id
+      - status
+      - message
+      title: QiskitJobCancelResponse
+      description: Response model for job cancellation.
   securitySchemes:
     HTTPBearer:
       type: http
