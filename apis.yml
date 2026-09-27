@@ -55,7 +55,7 @@ tags:
 - Quantum as a Service
 - Qiskit
 - Developer Tools
-- Machine-Learning
+- Machine Learning
 - Optimization
 - Finance
 - Chemistry
@@ -69,6 +69,7 @@ tags_raw:
 - Optimization
 - Finance
 - Chemistry
+- Machine-Learning
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -76,7 +77,7 @@ maintainers:
   email: info@apis.io
 apis:
 - aid: quantum-art:quantum-art-admin-api
-  name: Quantum Art admin API
+  name: Quantum Art Admin API
   description: The admin API from Quantum Art — 12 operation(s) for admin.
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
@@ -350,7 +351,7 @@ apis:
   - type: APIReference
     url: https://qaas.quantum-art.tech/docs
 - aid: quantum-art:quantum-art-qiskit-provider-api
-  name: Quantum Art qiskit-provider API
+  name: Quantum Art Qiskit Provider API
   description: The qiskit-provider API from Quantum Art — 5 operation(s) for qiskit-provider.
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
@@ -378,7 +379,7 @@ apis:
   - type: APIReference
     url: https://qaas.quantum-art.tech/docs
 - aid: quantum-art:quantum-art-registration-api
-  name: Quantum Art registration API
+  name: Quantum Art Registration API
   description: The registration API from Quantum Art — 2 operation(s) for registration.
   humanURL: https://qaas.quantum-art.tech/documentation
   baseURL: https://qaas.quantum-art.tech
